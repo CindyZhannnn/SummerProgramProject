@@ -9,6 +9,7 @@ public class Stick : MonoBehaviour
     private bool isAttachedToPlayer = false;
     public int count;
     public Collider2D stickCollider;
+    public Animator seed;
 
 
 
@@ -27,10 +28,12 @@ public class Stick : MonoBehaviour
             count++;
             if (isColliding && count %2 ==1 )
             {
+                seed.SetBool("pickUp", true);
                 transform.SetParent(playerTransform);
             }
             else
             {
+                seed.SetBool("pickUp", false);
                 transform.SetParent(null);
 
             }
