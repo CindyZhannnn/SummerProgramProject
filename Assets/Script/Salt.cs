@@ -10,9 +10,11 @@ public class Salt : MonoBehaviour
     public GameObject button;
     public Collider2D salt;
     public bool isDeadly;
+    public Animator player;
     void Start()
     {
         salt = GetComponent<Collider2D>();
+        isDeadly = true;
     }
 
     // Update is called once per frame
@@ -34,10 +36,12 @@ public class Salt : MonoBehaviour
 
                 }
                 gm.SwitchBetweenPlayer();
-                Destroy(collision.gameObject);
+                player.SetBool("IsDead", true);
+                Destroy(collision.gameObject, 2f);
             }
             else
             {
+                player.SetBool("IsDead", true);
                 dead.SetActive(true);
                 SpriteRenderer spriteRenderer = collision.GetComponent<SpriteRenderer>();
                 spriteRenderer.enabled = false;
@@ -46,6 +50,7 @@ public class Salt : MonoBehaviour
                     Transform child = collision.transform.GetChild(i);
                     child.gameObject.SetActive(false);
                 }
+
 
 
             }

@@ -1030,6 +1030,7 @@ MonoBehaviour:
   button: {fileID: 1081403397}
   salt: {fileID: 255545249}
   isDeadly: 0
+  player: {fileID: 0}
 --- !u!212 &255545252
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1368,7 +1369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f050f0e90540a24583612ec2da7b50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1711611305704654191, guid: 765313590fe456f4f9be1ba12c7dc2ca, type: 3}
+  playerPrefab: {fileID: 4560397098276855599, guid: 765313590fe456f4f9be1ba12c7dc2ca, type: 3}
   en: {fileID: 313978280}
   gm: {fileID: 1882437509}
   split: {fileID: 0}
@@ -2794,6 +2795,10 @@ PrefabInstance:
       propertyPath: button
       value: 
       objectReference: {fileID: 1081403397}
+    - target: {fileID: 4546947206264137932, guid: 2ec62108e6150894da967bacb1c859f9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1392804475}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2986,6 +2991,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383543939}
   m_CullTransparentMesh: 1
+--- !u!95 &1392804475 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6304797362094929201, guid: 765313590fe456f4f9be1ba12c7dc2ca, type: 3}
+  m_PrefabInstance: {fileID: 471688413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1628871834
 GameObject:
   m_ObjectHideFlags: 1
