@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextMTut2 : MonoBehaviour
+public class PassSaltDetect : MonoBehaviour
 {
     public Enemy en;
-    public Collider2D cd;
-    public PlayerMove pm;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,14 +16,12 @@ public class TextMTut2 : MonoBehaviour
     {
         
     }
-    public void turnEnOn()
-    {
-        en.enabled = true;
-        cd.enabled = true;
-    }
 
-    public void turnPlayerOn()
+    private void OnTriggerEnter2D(Collider2D cn)
     {
-        pm.enabled = true;
+        if (cn.tag == "Player")
+        {
+            en.enabled = true;
+        }
     }
 }

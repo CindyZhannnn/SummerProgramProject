@@ -1,3 +1,4 @@
+using Fungus;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -11,26 +12,22 @@ public class Enemy : MonoBehaviour
     public Gamem gm;
     public GameObject dead;
     public string playerTag = "Player";
+    public Animator playerAni;
 
     private void Start()
     {
+        
         GameObject playerObject = GameObject.FindWithTag(playerTag);
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-        }
-        else
-        {
-            Debug.LogError("Player GameObject not found with tag: " + playerTag);
-        }
+        player = playerObject.transform;
+        playerAni = playerObject.GetComponent<Animator>();
+        
     }
     public void findPlayerTag()
     {
         GameObject playerObject = GameObject.FindWithTag(playerTag);
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-        }
+        player = playerObject.transform;
+        playerAni = playerObject.GetComponent<Animator>();
+
     }
 
     private void Update()
@@ -40,17 +37,13 @@ public class Enemy : MonoBehaviour
         {
             player = playerObject.transform;
         }
-        // Calculate the direction towards the player
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
-
-        // Move the enemy towards the player
         transform.Translate(direction * movementSpeed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the collided object is the player character
         if (other.CompareTag("Player"))
         {
             gm.playerGameObjects.Remove(other.gameObject);
@@ -62,16 +55,20 @@ public class Enemy : MonoBehaviour
 
                 }
                 gm.SwitchBetweenPlayer();
-                Destroy(other.gameObject);
+                playerAni = other.gameObject.GetComponent<Animator>();
+                playerAni.SetBool("IsDead", true);
+                Destroy(other.gameObject, 2f);
                 findPlayerTag();
 
 
             }
             else
             {
+                playerAni = other.gameObject.GetComponent<Animator>();
+                playerAni.SetBool("IsDead", true);
                 dead.SetActive(true);
                 SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
-                spriteRenderer.enabled = false;
+                StartCoroutine(HideSpriteRendererWithDelay(other.gameObject));
                 MonoBehaviour thisScript = GetComponent<MonoBehaviour>();
                 thisScript.enabled = false;
 
@@ -82,11 +79,25 @@ public class Enemy : MonoBehaviour
 
 
             }
-        }
-
-
-
-
-
-
     }
+
+    private IEnumerator HideSpriteRendererWithDelay(GameObject gameObjectToHide)
+    {
+        yield return new WaitForSeconds(2f);
+
+        SpriteRenderer spriteRenderer = gameObjectToHide.GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+
+        for (int i = 0; i < gameObjectToHide.transform.childCount; i++)
+        {
+            Transform child = gameObjectToHide.transform.GetChild(i);
+            child.gameObject.SetActive(false);
+        }
+    }
+
+
+
+
+
+
+}

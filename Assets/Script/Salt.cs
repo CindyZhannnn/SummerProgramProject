@@ -36,15 +36,16 @@ public class Salt : MonoBehaviour
 
                 }
                 gm.SwitchBetweenPlayer();
+                player = collision.gameObject.GetComponent<Animator>();
                 player.SetBool("IsDead", true);
                 Destroy(collision.gameObject, 2f);
             }
             else
             {
+                player = collision.gameObject.GetComponent<Animator>();
                 player.SetBool("IsDead", true);
                 dead.SetActive(true);
-                SpriteRenderer spriteRenderer = collision.GetComponent<SpriteRenderer>();
-                spriteRenderer.enabled = false;
+                StartCoroutine(HideSpriteRendererWithDelay(collision.gameObject));
                 for (int i = 0; i < collision.transform.childCount; i++)
                 {
                     Transform child = collision.transform.GetChild(i);
@@ -69,6 +70,20 @@ public class Salt : MonoBehaviour
 
         }
     }
+    private IEnumerator HideSpriteRendererWithDelay(GameObject gameObjectToHide)
+    {
+        yield return new WaitForSeconds(2f);
+
+        SpriteRenderer spriteRenderer = gameObjectToHide.GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+
+        for (int i = 0; i < gameObjectToHide.transform.childCount; i++)
+        {
+            Transform child = gameObjectToHide.transform.GetChild(i);
+            child.gameObject.SetActive(false);
+        }
+    }
+
 
     public void OnTriggerExit2D(Collider2D cn)
     {

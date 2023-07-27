@@ -6,7 +6,7 @@ public class Stick : MonoBehaviour
 {
     public Transform playerTransform;
     private bool isColliding = false;
-    private bool isAttachedToPlayer = false;
+    //private bool isAttachedToPlayer = false;
     public int count;
     public Collider2D stickCollider;
     public Animator seed;
@@ -23,7 +23,7 @@ public class Stick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             count++;
             if (isColliding && count %2 ==1 )
