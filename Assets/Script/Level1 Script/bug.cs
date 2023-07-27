@@ -46,34 +46,46 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gm.playerGameObjects.Remove(other.gameObject);
-            if (gm.playerGameObjects.Count >= 1)
+            Collider2D collider1 = GetComponent<Collider2D>();
+            float size1 = collider1.bounds.size.magnitude;
+            float size2 = other.bounds.size.magnitude;
+            if (size1 < size2)
             {
-                if (gm.countNum >= gm.playerGameObjects.Count)
-                {
-                    gm.countNum = gm.countNum - gm.playerGameObjects.Count;
-
-                }
-                gm.SwitchBetweenPlayer();
-                playerAni = other.gameObject.GetComponent<Animator>();
-                playerAni.SetBool("IsDead", true);
-                Destroy(other.gameObject, 2f);
-                findPlayerTag();
-
-
+                Destroy(gameObject); 
             }
             else
             {
-                playerAni = other.gameObject.GetComponent<Animator>();
-                playerAni.SetBool("IsDead", true);
-                dead.SetActive(true);
-                SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
-                StartCoroutine(HideSpriteRendererWithDelay(other.gameObject));
-                MonoBehaviour thisScript = GetComponent<MonoBehaviour>();
-                thisScript.enabled = false;
+      
+                gm.playerGameObjects.Remove(other.gameObject);
+                if (gm.playerGameObjects.Count >= 1)
+                {
+                    if (gm.countNum >= gm.playerGameObjects.Count)
+                    {
+                        gm.countNum = gm.countNum - gm.playerGameObjects.Count;
+
+                    }
+                    gm.SwitchBetweenPlayer();
+                    playerAni = other.gameObject.GetComponent<Animator>();
+                    playerAni.SetBool("IsDead", true);
+                    Destroy(other.gameObject, 2f);
+                    findPlayerTag();
 
 
+                }
+                else
+                {
+                    playerAni = other.gameObject.GetComponent<Animator>();
+                    playerAni.SetBool("IsDead", true);
+                    dead.SetActive(true);
+                    SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
+                    StartCoroutine(HideSpriteRendererWithDelay(other.gameObject));
+                    MonoBehaviour thisScript = GetComponent<MonoBehaviour>();
+                    thisScript.enabled = false;
+
+
+                }
             }
+            
 
             
 

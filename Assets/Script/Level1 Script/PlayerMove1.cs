@@ -26,6 +26,7 @@ public class PlayerMove : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         WakeUp();
+
         
 
     }
@@ -35,11 +36,15 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         DetectPlayerMove();
-        
-        //growFunction();
-      
-        
+        Transform objTransform = transform;
+        Vector3 localScale = objTransform.localScale;
+        float size = localScale.x;
+        speed = (3.0f - size) * 200;
     }
+    //growFunction();
+
+
+
 
 
     public void DetectPlayerMove()

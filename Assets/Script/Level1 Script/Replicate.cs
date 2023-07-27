@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Replicate : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class Replicate : MonoBehaviour
     public Gamem gm;
     public Animator split;
     public int NumOfSPlit;
-    
+    public Text NumOfSplit;
+
     void Start()
     {
         
@@ -21,6 +23,7 @@ public class Replicate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        NumOfSplit.text = "Number Of Split Left: " + (3-NumOfSPlit);
         SplitFunction();
     }
     void SplitFunction()
