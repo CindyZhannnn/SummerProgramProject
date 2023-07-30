@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public GameObject dead;
     public string playerTag = "Player";
     public Animator playerAni;
+    public GameObject nextScene;
 
     private void Start()
     {
@@ -51,7 +52,9 @@ public class Enemy : MonoBehaviour
             float size2 = other.bounds.size.magnitude;
             if (size1 < size2)
             {
-                Destroy(gameObject); 
+                Destroy(gameObject);
+                nextScene.SetActive(true);
+
             }
             else
             {

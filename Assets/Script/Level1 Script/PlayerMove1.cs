@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour
         Transform objTransform = transform;
         Vector3 localScale = objTransform.localScale;
         float size = localScale.x;
-        speed = (3.0f - size) * 200;
+        speed = (3.0f - (size*0.2f)) * 300;
     }
     //growFunction();
 
@@ -118,18 +118,22 @@ public class PlayerMove : MonoBehaviour
         }
         if(cd.tag == "PlayerSub")
         {
+            Destroy(cd.gameObject);
             GameObject gameManagerObject = GameObject.FindGameObjectWithTag("GameManager");
             Gamem gm = gameManagerObject.GetComponent<Gamem>();
             gm.playerGameObjects.Remove(cd.gameObject);
-            Vector3 newScale = transform.localScale * 1.3f; 
+            Vector3 newScale = new Vector3((transform.localScale.x + cd.transform.localScale.x) * 0.6f,
+                                (transform.localScale.y + cd.transform.localScale.y) * 0.6f,
+                                transform.localScale.z);
+            print("111");
             transform.localScale = newScale;
-            Destroy(cd.gameObject);
+            
             if (gm.countNum >= gm.playerGameObjects.Count)
             {
                 gm.countNum = gm.countNum - gm.playerGameObjects.Count;
             }
             //gm.SwitchBetweenPlayer();
-            re.NumOfSPlit--;
+
         }
         if(cd.tag =="Floor")
         {

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7755068099209936834}
   - component: {fileID: 4546947206264137932}
   - component: {fileID: 887079130319852882}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Salt
   m_TagString: Salt
   m_Icon: {fileID: 0}
@@ -102,6 +102,8 @@ MonoBehaviour:
   dead: {fileID: 0}
   button: {fileID: 0}
   salt: {fileID: 887079130319852882}
+  isDeadly: 0
+  player: {fileID: 0}
 --- !u!61 &887079130319852882
 BoxCollider2D:
   m_ObjectHideFlags: 0

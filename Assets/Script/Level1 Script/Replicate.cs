@@ -12,9 +12,9 @@ public class Replicate : MonoBehaviour
     public Enemy en;
     public Gamem gm;
     public Animator split;
-    public int NumOfSPlit;
+    public float NumOfSPlit;
     public Text NumOfSplit;
-
+    public Transform splitPos;
     void Start()
     {
         
@@ -23,7 +23,7 @@ public class Replicate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        NumOfSplit.text = "Number Of Split Left: " + (3-NumOfSPlit);
+      
         SplitFunction();
     }
     void SplitFunction()
@@ -32,10 +32,9 @@ public class Replicate : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             
-            if (NumOfSPlit < 3)
-            {
+
                 StartCoroutine(SplitCoroutine());
-            }
+            
                 
         }
         
@@ -46,6 +45,7 @@ public class Replicate : MonoBehaviour
         NumOfSPlit++;
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         Transform child = playerObject.transform.GetChild(0);
+        splitPos = playerObject.transform.GetChild(2);
         SpriteRenderer playerSpriteRenderer = playerObject.GetComponent<SpriteRenderer>();
         playerSpriteRenderer.enabled = false;
 
@@ -65,7 +65,7 @@ public class Replicate : MonoBehaviour
         float playerObjectWidth = playerSpriteRenderer.bounds.size.x;
         float player1Width = playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         float distance = (playerObjectWidth + player1Width)*1.0f;
-        GameObject player1 = Instantiate(playerPrefab, currentPosition + new Vector3(distance, 0f, 0f), Quaternion.identity);
+        GameObject player1 = Instantiate(playerPrefab, splitPos.position,Quaternion.identity);
         player1.transform.localScale = smallerScale;
 
         player1.tag = "PlayerSub";

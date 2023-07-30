@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Stick : MonoBehaviour
@@ -8,8 +9,8 @@ public class Stick : MonoBehaviour
     private bool isColliding = false;
     //private bool isAttachedToPlayer = false;
     public int count;
-    public Collider2D stickCollider;
     public Animator seed;
+    public LayerMask saltLayer;
 
 
 
@@ -23,20 +24,24 @@ public class Stick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            count++;
-            if (isColliding && count %2 ==1 )
+            if (isColliding)
             {
                 seed.SetBool("pickUp", true);
                 transform.SetParent(playerTransform);
             }
-            else
-            {
-                seed.SetBool("pickUp", false);
-                transform.SetParent(null);
+        }
+        else
+        {
+            seed.SetBool("pickUp", false);
+            transform.SetParent(null);
 
-            }
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Collider2D[] all = Physics2D.OverlapCircleAll(this.transform.position, 2,saltLayer);
+            print(all.Length);
         }
     }
 
