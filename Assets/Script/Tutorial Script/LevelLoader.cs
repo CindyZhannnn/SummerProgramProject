@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
-    
 
     // Update is called once per frame
     void Update()
@@ -16,6 +15,7 @@ public class LevelLoader : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        ScaleHolder.characterScale = collision.gameObject.transform.localScale;
         LoadNextLevel();
     }
     public void LoadNextLevel()

@@ -26,6 +26,7 @@ public class Stick : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             if (isColliding)
             {
                 seed.SetBool("pickUp", true);
@@ -40,11 +41,26 @@ public class Stick : MonoBehaviour
         }
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            Collider2D[] all = Physics2D.OverlapCircleAll(this.transform.position, 2,saltLayer);
+            Collider2D[] all = Physics2D.OverlapCircleAll(this.transform.position, 0.5f,saltLayer);
             print(all.Length);
+            if(all.Length != 0)
+            {
+                for(int i =0; i < all.Length; i++)
+                {
+                    all[i].enabled = false;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < all.Length; i++)
+                {
+                    all[i].enabled = true;
+                }
+            }
         }
     }
 
+    
     public void OnTriggerEnter2D(Collider2D cn)
     {
         if(cn.tag == "GrabCd")
@@ -52,6 +68,7 @@ public class Stick : MonoBehaviour
             isColliding = true;
         }
     }
+ 
     public void OnTriggerExit2D(Collider2D cn)
     {
         if (cn.CompareTag("GrabCd"))
@@ -61,4 +78,6 @@ public class Stick : MonoBehaviour
         }
 
     }
+
+
 }

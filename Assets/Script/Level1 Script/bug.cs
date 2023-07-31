@@ -58,35 +58,9 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-      
-                gm.playerGameObjects.Remove(other.gameObject);
-                if (gm.playerGameObjects.Count >= 1)
-                {
-                    if (gm.countNum >= gm.playerGameObjects.Count)
-                    {
-                        gm.countNum = gm.countNum - gm.playerGameObjects.Count;
 
-                    }
-                    gm.SwitchBetweenPlayer();
-                    playerAni = other.gameObject.GetComponent<Animator>();
-                    playerAni.SetBool("IsDead", true);
-                    Destroy(other.gameObject, 2f);
-                    findPlayerTag();
-
-
-                }
-                else
-                {
-                    playerAni = other.gameObject.GetComponent<Animator>();
-                    playerAni.SetBool("IsDead", true);
-                    dead.SetActive(true);
-                    SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
-                    StartCoroutine(HideSpriteRendererWithDelay(other.gameObject));
-                    MonoBehaviour thisScript = GetComponent<MonoBehaviour>();
-                    thisScript.enabled = false;
-
-
-                }
+                gm.Playerdead(other.gameObject);
+                
             }
             
 

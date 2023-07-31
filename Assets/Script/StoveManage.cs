@@ -5,10 +5,10 @@ using UnityEngine;
 public class StoveManage : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject s1;
-    public GameObject s2;
-    public GameObject s3;
-    public GameObject s4;
+    public Animator s1;
+    public Animator s2;
+    public Animator s3;
+    public Animator s4;
     public bool isTurning; 
 
    void Start()
@@ -23,36 +23,33 @@ public class StoveManage : MonoBehaviour
         while (isTurning)
         {
 
-            s1.SetActive(true);
-            s2.SetActive(false);
-            s3.SetActive(false);
-            s4.SetActive(false);
-            yield return new WaitForSeconds(10f);
+            s1.SetBool("IsOn", true);
+            s1.gameObject.GetComponent<Collider2D>().enabled = true;
+            s2.SetBool("IsOn", false);
+            s2.gameObject.GetComponent<Collider2D>().enabled = false;
+            s3.SetBool("IsOn", false);
+            s3.gameObject.GetComponent<Collider2D>().enabled = false;
+            s4.SetBool("IsOn", true);
+            s2.gameObject.GetComponent<Collider2D>().enabled = true;
+            yield return new WaitForSeconds(3f);
 
 
-            s1.SetActive(false);
-            s2.SetActive(true);
-            s3.SetActive(false);
-            s4.SetActive(false);
-            yield return new WaitForSeconds(10f);
+            s1.SetBool("IsOn", false);
+            s1.gameObject.GetComponent<Collider2D>().enabled = false;
+            s2.SetBool("IsOn",true);
+            s2.gameObject.GetComponent<Collider2D>().enabled = true;
+            s3.SetBool("IsOn",true);
+            s3.gameObject.GetComponent<Collider2D>().enabled = true;
+            s4.SetBool("IsOn",false);
+            s4.gameObject.GetComponent<Collider2D>().enabled = false;
+            yield return new WaitForSeconds(3f);
 
 
-            s1.SetActive(false);
-            s2.SetActive(false);
-            s3.SetActive(true);
-            s4.SetActive(false);
-            yield return new WaitForSeconds(10f);
-
-            s1.SetActive(false);
-            s2.SetActive(false);
-            s3.SetActive(false);
-            s4.SetActive(true);
-            yield return new WaitForSeconds(10f);
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

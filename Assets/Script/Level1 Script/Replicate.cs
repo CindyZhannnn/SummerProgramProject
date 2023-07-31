@@ -12,8 +12,6 @@ public class Replicate : MonoBehaviour
     public Enemy en;
     public Gamem gm;
     public Animator split;
-    public float NumOfSPlit;
-    public Text NumOfSplit;
     public Transform splitPos;
     void Start()
     {
@@ -42,7 +40,6 @@ public class Replicate : MonoBehaviour
     }
     IEnumerator SplitCoroutine()
     {
-        NumOfSPlit++;
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         Transform child = playerObject.transform.GetChild(0);
         splitPos = playerObject.transform.GetChild(2);
@@ -79,6 +76,6 @@ public class Replicate : MonoBehaviour
 
         en.player = player1.transform;
         gm.haveNewObj(player1);
-       // gm.SwitchBetweenPlayer();
+        gm.SwitchBetweenPlayer();
     }
 }

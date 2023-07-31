@@ -25,42 +25,16 @@ public class Salt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && isDeadly == true)
+        if (collision.CompareTag("Player"))
         {
-            gm.playerGameObjects.Remove(collision.gameObject);
-            if (gm.playerGameObjects.Count >= 1)
-            {
-                if (gm.countNum >= gm.playerGameObjects.Count)
-                {
-                    gm.countNum = gm.countNum - gm.playerGameObjects.Count;
 
-                }
-                gm.SwitchBetweenPlayer();
-                player = collision.gameObject.GetComponent<Animator>();
-                player.SetBool("IsDead", true);
-                Destroy(collision.gameObject, 2f);
-            }
-            else
-            {
-                player = collision.gameObject.GetComponent<Animator>();
-                player.SetBool("IsDead", true);
-                dead.SetActive(true);
-                StartCoroutine(HideSpriteRendererWithDelay(collision.gameObject));
-                for (int i = 0; i < collision.transform.childCount; i++)
-                {
-                    Transform child = collision.transform.GetChild(i);
-                    child.gameObject.SetActive(false);
-                }
-
-
-
-            }
+                gm.Playerdead(collision.gameObject);
 
         }
-        else if(collision.CompareTag("Stick") && isDeadly == true)
+        else if(collision.CompareTag("Stick") )
         {
-            isDeadly = false;
-            print("not deadly");
+            //isDeadly = false;
+
         }
         else if(collision.CompareTag("Bug"))
         {
@@ -72,10 +46,9 @@ public class Salt : MonoBehaviour
     }
     private IEnumerator HideSpriteRendererWithDelay(GameObject gameObjectToHide)
     {
-        yield return new WaitForSeconds(2f);
-
-        SpriteRenderer spriteRenderer = gameObjectToHide.GetComponent<SpriteRenderer>();
-        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(1f);
+        PlayerMove pm = gameObjectToHide.GetComponent<PlayerMove>();
+        pm.enabled = false;
 
         for (int i = 0; i < gameObjectToHide.transform.childCount; i++)
         {

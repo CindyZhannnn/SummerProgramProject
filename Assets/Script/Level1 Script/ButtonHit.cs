@@ -9,6 +9,7 @@ public class ButtonHit : MonoBehaviour
     public GameObject nextButton;
     public Animator button;
 
+
     void Start()
     {
     }
@@ -25,21 +26,17 @@ public class ButtonHit : MonoBehaviour
             detectH.turnButtonOn(nextButton);
             print(detectH.objectHit);
             button.SetBool("IsPress", true);
-
         }
     }
     void OnTriggerExit2D(Collider2D cd)
     {
-        print("leaving");
-        if(nextButton.tag == "Button3" && cd.tag == "Player")
-        {
-            print("destroyed all");
-            detectH.destroyAllGameObj();
-        }
-        else if(cd.tag == "Player")
+        //print("leaving");
+
+       if(cd.tag == "Player")
         {
             detectH.turnButtonOff(nextButton);
             button.SetBool("IsPress", false);
+
 
 
         }

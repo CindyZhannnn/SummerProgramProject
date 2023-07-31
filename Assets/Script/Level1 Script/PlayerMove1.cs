@@ -26,8 +26,8 @@ public class PlayerMove : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         WakeUp();
+        GameObject crumbs = transform.Find("Crumbs").gameObject;
 
-        
 
     }
 
@@ -114,7 +114,10 @@ public class PlayerMove : MonoBehaviour
         if (cd.tag == "EatenThings")
         {
             rd.transform.localScale *= 1.1f;
+            GameObject crumbs = gameObject.transform.GetChild(3).gameObject;
+            crumbs.SetActive(true);
             Destroy(cd.gameObject);
+            StartCoroutine(setCrumbsFalse(crumbs));
         }
         if(cd.tag == "PlayerSub")
         {
@@ -151,5 +154,10 @@ public class PlayerMove : MonoBehaviour
         walking.SetBool("Sleeping", false);
     }
 
+    IEnumerator setCrumbsFalse(GameObject crumbs)
+    {
+        yield return new WaitForSeconds(1f);
+        crumbs.SetActive(false);
+    }
 
 }
